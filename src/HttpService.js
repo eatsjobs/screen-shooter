@@ -1,5 +1,5 @@
 export class HttpService {
-    constructor({ url = window.location.origin }) {
+    constructor({ url = window.location.origin } = {}) {
         this.baseURL = url;
     }
     collect() {
