@@ -4,13 +4,15 @@ Error reporting module
 
 ## Purpose
 Standalone package to retrieve session information about Odigeo products
-The package is release in two ways: 
+The package is release in format output: 
 - standalone umd build
 - esm modern package
-If you use webpack the new esm package will be loaded
+If you use webpack the new esm package will be loaded and you should transpile it
 
 ## Install
+```javascript
 npm install odigeo-error-reporting
+```
 
 ## Implementation example (see index.html)
 ```javascript
@@ -21,7 +23,7 @@ async function load() {
     btn.disabled = true;
     btn.innerText = 'Loading...';
     // Load the module on the fly (webpack should create a standalone chunk)
-    const { default: GenerateReport } = await import("/dist/esm.mjs");
+    const { default: GenerateReport } = await import("odigeo-error-reporting");
     const url = await GenerateReport();
     const a = document.createElement('a');
     a.href = url;
