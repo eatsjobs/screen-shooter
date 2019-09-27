@@ -1,14 +1,31 @@
+/**
+ *
+ *
+ * @export
+ * @class HttpService
+ */
 export class HttpService {
-    constructor({ url = window.location.origin } = {}) {
-        this.baseURL = url;
-    }
-    collect() {
-        return fetch(this.baseURL, { 
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            }
-        });
-    }
+  /**
+   *Creates an instance of HttpService.
+   * @param {*} [{url = window.location.origin}={}] - test
+   * @memberof HttpService
+   */
+  constructor({url = window.location.origin} = {}) {
+    this.baseURL = url;
+  }
+  /**
+   *
+   *
+   * @return {Promise}
+   * @memberof HttpService
+   */
+  collect() {
+    return fetch(this.baseURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
 }
