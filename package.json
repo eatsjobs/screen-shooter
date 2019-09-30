@@ -11,12 +11,13 @@
     "node": ">= 10"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "build:dev": "cross-env NODE_ENV=development rollup -c",
     "build:watch": "rollup -cw",
     "serve": "http-server . -o -p 6009",
-    "dev": "npm-run-all --parallel build:watch serve",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "dev": "cross-env NODE_ENV=development npm-run-all --parallel build:watch serve",
+    "test": "cross-env NODE_ENV=test jest",
+    "test:watch": "cross-env NODE_ENV=test jest --watch",
     "version": "npm run build"
   },
   "repository": {
@@ -28,13 +29,13 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/pmangialavori/odigeo-error-reporting#readme",
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
-    "@babel/runtime-corejs2": "^7.6.2",
     "babel-jest": "^24.9.0",
-    "core-js": "^2.6.9",
+    "camelcase": "^5.3.1",
+    "cross-env": "^6.0.0",
     "eslint": "^6.4.0",
     "eslint-config-google": "^0.14.0",
     "http-server": "^0.11.1",
@@ -52,14 +53,29 @@
   "files": [
     "dist/**"
   ],
-  "dependencies": {},
   "np": {
     "yarn": false,
     "contents": "dist"
   },
   "husky": {
-    "hooks": {      
-      "pre-push": "npm test"      
+    "hooks": {
+      "pre-push": "npm test"
     }
-  }
+  },
+  "browserslist": {
+    "production": [
+      "last 2 version",
+      "> 1%",
+      "not dead",
+      "IE 11",
+      "not op_mini all",
+      "node 10"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {}
 }
