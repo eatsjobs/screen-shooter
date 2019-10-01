@@ -4,7 +4,7 @@
  * @export
  * @class HttpService
  */
-export class HttpService {
+export default class HttpService {
   /**
    * Creates an instance of HttpService.
    * @param {Object} [{url = window.location.origin}={}] - test

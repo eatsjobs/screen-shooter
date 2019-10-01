@@ -1,7 +1,7 @@
-import FileSaver from '.';
-
+import _FileSaver from './index.js';
+let FileSaver = null;
 beforeEach(() => {
-
+  FileSaver = new _FileSaver();
 });
 
 test('file saver', async () => {

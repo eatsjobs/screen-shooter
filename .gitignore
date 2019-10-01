@@ -68,3 +68,5 @@ docs/*
 
 # dist
 dist/*
+# lib
+lib/*

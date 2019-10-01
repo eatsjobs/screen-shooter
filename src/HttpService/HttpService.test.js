@@ -1,4 +1,4 @@
-import {HttpService} from '.';
+import HttpService from './index.js';
 
 let httpService = null;
 beforeEach(() => {

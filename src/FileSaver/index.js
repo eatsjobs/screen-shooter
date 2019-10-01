@@ -4,7 +4,7 @@
  *
  * @class FileSaver
  */
-class FileSaver {
+export default class FileSaver {
   /**
      *
      * Generate the ObjectURL
@@ -24,5 +24,3 @@ class FileSaver {
     }
   }
 }
-
-export default new FileSaver;

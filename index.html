@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
+  <title>Test Error reporting</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 </head>
@@ -21,7 +21,7 @@
                 btn.disabled = true;
                 btn.innerText = 'Loading...';
                 // load the module
-                const { default: GenerateReport } = await import("/dist/esm.mjs");
+                const { default: GenerateReport } = await import("/lib/index.mjs");
                 const url = await GenerateReport();
                 const a = document.createElement('a');
                 a.href = url;
@@ -36,7 +36,7 @@
             btn.addEventListener('click', load);
         })();
     </script>
-    <script nomodule src="/dist/umd.js">
+    <script nomodule src="/lib/index.umd.js">
         console.log("script type nomodule", {OER});
         OdigeoErrorReporting();
     </script>
