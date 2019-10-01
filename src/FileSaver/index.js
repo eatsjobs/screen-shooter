@@ -14,7 +14,7 @@ export default class FileSaver {
      * @return {ObjectURL}
      * @memberof FileSaver
      */
-  save(data, filename = `${new Date().toJSON()}.txt`, type = 'text/plain') {
+  save({data, filename = `${new Date().toJSON()}.txt`, type = 'text/plain'} = {}) {
     const file = new Blob([data], {type});
     if (window.navigator.msSaveOrOpenBlob) {
       window.navigator.msSaveOrOpenBlob(file, filename);
