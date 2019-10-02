@@ -1,6 +1,6 @@
 {
   "name": "odigeo-error-reporting",
-  "version": "1.0.4",
+  "version": "1.0.3",
   "description": "Error reporting module",
   "source": "src/main.js",
   "main": "lib/index.js",
@@ -54,7 +54,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm test"
+      "pre-commit": "npm test"
     }
   },
   "dependencies": {
