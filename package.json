@@ -7,6 +7,7 @@
   "module": "lib/index.mjs",
   "unpkg": "lib/index.umd.js",
   "browser": "lib/index.umd.js",
+  "umd:main": "lib/index.umd.js",
   "publishConfig": {
     "registry": "http://nexus.services.odigeo.com/nexus/repository/npm-all/"
   },

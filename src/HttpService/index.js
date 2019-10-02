@@ -20,13 +20,13 @@ export default class HttpService {
    * @return {Promise}
    * @memberof HttpService
    */
-  collect() {
-    return fetch(this.baseURL, {
+  async collect() {
+    return await fetch(this.baseURL, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-    });
+    }).then(_ => _.json());
   }
 }

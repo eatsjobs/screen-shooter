@@ -11,7 +11,7 @@ const http = new HttpService({
  */
 export default async function getReport() {
   // /travel/service/reporting/report?toUrl=www.edreams.es
-  const response = await http.collect();
+  const sessiondata = await http.collect();
   // TODO: some other stuff
-  return generateBlob({data: 'Any text'});
+  return generateBlob({data: JSON.stringify(sessiondata)});
 }

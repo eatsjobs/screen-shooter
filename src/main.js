@@ -23,10 +23,10 @@ class App extends Component {
   async takeScreenShot() {
     try {
       this.setState({isLoadingScreenshot: true});
-      const canvasElement = await html2canvas(document.body);
-      const imageUrlFile = canvasElement.toDataURL('image/jpeg', 1.0)
-          .replace('image/jpeg', 'image/octet-stream');
-      download({url: imageUrlFile, name: 'image', ext: 'jpg'});
+      const canvasElement = await html2canvas(document.body, {useCORS: true, allowTaint: true, imageTimeout: 5000});
+      const imageUrlFile = canvasElement.toDataURL('image/png', 1.0)
+          .replace('image/png', 'image/octet-stream');
+      download({url: imageUrlFile, name: 'image', ext: 'png'});
       this.setState({isLoadingScreenshot: false});
     } catch (e) {
       this.setState({isLoadingScreenshot: false});
