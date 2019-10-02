@@ -3,8 +3,8 @@ module.exports = {
     'browser': true,
     'es6': true,
   },
-  'extends': [
-    'google',
+  'extends': [    
+    'google'
   ],
   'globals': {
     'Atomics': 'readonly',
@@ -15,5 +15,14 @@ module.exports = {
     'sourceType': 'module',
   },
   'rules': {
+    "require-jsdoc": ["error", {
+      "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": false,
+          "ClassDeclaration": false,
+          "ArrowFunctionExpression": false,
+          "FunctionExpression": false
+      }
+    }]
   },
 };

@@ -6,6 +6,7 @@
   "main": "lib/index.js",
   "module": "lib/index.mjs",
   "unpkg": "lib/index.umd.js",
+  "browser": "lib/index.umd.js",
   "publishConfig": {
     "registry": "http://nexus.services.odigeo.com/nexus/repository/npm-all/"
   },
@@ -13,10 +14,10 @@
     "node": ">= 10"
   },
   "scripts": {
-    "build": "microbundle src/main.js -f es,umd --sourcemap --compress",
-    "build:dev": "microbundle src/main.js -f es,umd --sourcemap --compress=false",
-    "build:watch": "microbundle src/main.js -f es,umd -w --sourcemap",
-    "serve": "http-server . -o -p 6009",
+    "build": "microbundle src/main.js -f es,umd --sourcemap --compress=false --external=none",
+    "build:dev": "microbundle src/main.js -f es,umd --sourcemap --compress=false --external=none",
+    "build:watch": "microbundle src/main.js -f es,umd -w --sourcemap --compress=false --external=none",
+    "serve": "http-server . -o -p 6009 -c-1",
     "dev": "cross-env NODE_ENV=development npm-run-all --parallel build:watch serve",
     "test": "cross-env NODE_ENV=test jest --no-cache",
     "test:watch": "cross-env NODE_ENV=test jest --watch --no-cache",
@@ -30,9 +31,11 @@
   "author": "eatsjobs",
   "license": "ISC",
   "homepage": "https://bitbucket.org/pmangialavori/odigeo-error-reporting#readme",
-  "devDependencies": {    
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
     "cross-env": "^6.0.0",
-    "eslint": "^6.4.0",
+    "eslint": "^6.5.1",
+    "eslint-config-developit": "^1.1.1",
     "eslint-config-google": "^0.14.0",
     "esm": "=3.1.0",
     "http-server": "^0.11.1",
@@ -53,19 +56,10 @@
       "pre-push": "npm test"
     }
   },
-  "browserslist": {
-    "production": [
-      "last 2 version",
-      "> 1%",
-      "not dead",
-      "IE 11",
-      "not op_mini all",
-      "node 10"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "htm": "^2.2.1",
+    "html2canvas": "^1.0.0-rc.5",
+    "preact": "^10.0.0",
+    "whatwg-fetch": "^3.0.0"
   }
 }

@@ -3,39 +3,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
-  <title>Test Error reporting</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
+  <title>Test Error reporting</title>  
 </head>
 
 <body>
     <h1>Test error reporting</h1>
-    <button id="report-button">Generate Report</button>
     <script type="module">
-        (async function() {
-            const $ = document.querySelector.bind(document);
-            const btn = $('#report-button');
-
-            async function load() {
-                btn.disabled = true;
-                btn.innerText = 'Loading...';
-                // load the module
-                const { default: GenerateReport } = await import("/lib/index.mjs");
-                const url = await GenerateReport();
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `Report.${new Date().toJSON()}.txt`;      
-                a.click();
-                setTimeout(function() {                    
-                    window.URL.revokeObjectURL(url);
-                    btn.disabled = false;
-                    btn.innerText = 'Generate Report';
-                }, 0); 
-            }            
-            btn.addEventListener('click', load);
-        })();
-    </script>
+        import main from '/lib/index.mjs'
+        main();
+    </script>    
     <script nomodule src="/lib/index.umd.js">
         console.log("script type nomodule", {OER});
         OdigeoErrorReporting();

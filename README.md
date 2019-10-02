@@ -11,29 +11,20 @@ If you use webpack the new esm package will be loaded and you should transpile i
 
 ## Install
 ```javascript
-npm install odigeo-error-reporting
+npm install odigeo-error-reporting --save
+```
+
+## Develop
+```javascript
+git clone git@bitbucket.org:pmangialavori/odigeo-error-reporting.git && cd odigeo-error-reporting
+npm install
+npm run dev
 ```
 
 ## Implementation example (see index.html)
 ```javascript
-const $ = document.querySelector.bind(document);
-const btn = $('#report-button');
-
-async function load() {
-    btn.disabled = true;
-    btn.innerText = 'Loading...';
-    // Load the module on the fly (webpack should create a standalone chunk)
-    const { default: GenerateReport } = await import("odigeo-error-reporting");
-    const url = await GenerateReport();
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `Report.${new Date().toJSON()}.txt`;      
-    a.click();
-    setTimeout(function() {                    
-        window.URL.revokeObjectURL(url);
-        btn.disabled = false;
-        btn.innerText = 'Generate Report';
-    }, 0); 
-}
-btn.addEventListener('click', load);
+(async function() {
+    const { default: myModule } = await import('odigeo-error-reporting');
+    myModule.main(options);
+})()
 ```

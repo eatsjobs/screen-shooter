@@ -1,26 +1,35 @@
+import {createElement} from '../utils.js';
 
 /**
  *
- *
- * @class FileSaver
+ * Generate the ObjectURL
+ * @param {String} data
+ * @param {string} [filename=`${new Date().toJSON()}.txt`]
+ * @param {string} [type='text/plain']
+ * @return {DOMStringMap}
+ * @memberof FileSaver
  */
-export default class FileSaver {
-  /**
-     *
-     * Generate the ObjectURL
-     * @param {String} data
-     * @param {string} [filename=`${new Date().toJSON()}.txt`]
-     * @param {string} [type='text/plain']
-     * @return {ObjectURL}
-     * @memberof FileSaver
-     */
-  save({data, filename = `${new Date().toJSON()}.txt`, type = 'text/plain'} = {}) {
-    const file = new Blob([data], {type});
-    if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(file, filename);
-    } else {
-      const url = URL.createObjectURL(file);
-      return url;
-    }
-  }
+export function generateBlob({
+  data,
+  filename = `${new Date().toJSON()}.txt`,
+  type = 'text/plain',
+} = {}) {
+  const file = new Blob([data], {type});
+
+  const url = URL.createObjectURL(file);
+  return url;
+}
+
+/**
+ * save the file
+ * @param {Object} [{ url, name='report', ext='txt' }={}]
+ */
+export function download({url, name='report', ext='txt'} = {}) {
+  const a = createElement('a');
+  a.href = url;
+  a.download = `name.${new Date().toUTCString()}.${ext}`;
+  a.click();
+  setTimeout(() => {
+    window.URL.revokeObjectURL(url);
+  }, 0);
 }

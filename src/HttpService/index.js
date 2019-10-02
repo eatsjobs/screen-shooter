@@ -5,14 +5,16 @@
  * @class HttpService
  */
 export default class HttpService {
+
   /**
    * Creates an instance of HttpService.
    * @param {Object} [{url = window.location.origin}={}] - test
    * @memberof HttpService
    */
-  constructor({url = window.location.origin} = {}) {
+  constructor({ url = window.location.origin } = {}) {
     this.baseURL = url;
   }
+
   /**
    *
    *
