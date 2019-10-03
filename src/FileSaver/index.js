@@ -11,25 +11,29 @@ import {createElement} from '../utils.js';
  */
 export function generateBlob({
   data,
-  filename = `${new Date().toJSON()}.txt`,
   type = 'text/plain',
 } = {}) {
   const file = new Blob([data], {type});
-
-  const url = URL.createObjectURL(file);
-  return url;
+  return file;
 }
 
 /**
  * save the file
  * @param {Object} [{ url, name='report', ext='txt' }={}]
  */
-export function download({url, name='report', ext='txt'} = {}) {
+export function download({url, name='report', ext='txt'} = {}) {  
   const a = createElement('a');
-  a.href = url;
-  a.download = `name.${new Date().toUTCString()}.${ext}`;
-  a.click();
+  a.style = 'display:none; position: absolute; height:0px; width:0px;';
+  if (typeof a.download === 'string') {
+    a.href = url;
+    a.download = `${name}.${new Date().toUTCString()}.${ext}`;
+    document.body.appendChild(a);
+    a.click();
+  } else {
+    window.open(url);
+  }
   setTimeout(() => {
-    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+    a.remove();
   }, 0);
 }

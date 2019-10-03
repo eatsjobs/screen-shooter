@@ -9,7 +9,7 @@ export function styleSheet(css) {
   if (style.styleSheet) {
     style.styleSheet.cssText = css;
   } else {
-    style.appendChild(document.createTextNode(css));    
+    style.appendChild(document.createTextNode(css));
   }
   return style;
 }
