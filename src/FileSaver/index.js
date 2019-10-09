@@ -19,9 +19,13 @@ export function generateBlob({
 
 /**
  * save the file
- * @param {Object} [{ url, name='report', ext='txt' }={}]
+ * @param {object} [options={}] options
+ * @param {string} options.url url
+ * @param {string} [options.name="report"] name
+ * @param {string} [options.ext="txt"] ext
+ * @return {HTMLAnchorElement}
  */
-export function download({url, name='report', ext='txt'} = {}) {  
+export function download({url, name='report', ext='txt'} = {}) {
   const a = createElement('a');
   a.style = 'display:none; position: absolute; height:0px; width:0px;';
   if (typeof a.download === 'string') {
@@ -36,4 +40,5 @@ export function download({url, name='report', ext='txt'} = {}) {
     document.body.removeChild(a);
     a.remove();
   }, 0);
+  return a;
 }

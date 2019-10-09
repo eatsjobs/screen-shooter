@@ -13,5 +13,5 @@ export default async function getReport() {
   // /travel/service/reporting/report?toUrl=www.edreams.es
   const sessiondata = await http.collect();
   // TODO: some other stuff
-  return generateBlob({data: JSON.stringify(sessiondata)});
+  return generateBlob({data: JSON.stringify(sessiondata, null, 2)});
 }

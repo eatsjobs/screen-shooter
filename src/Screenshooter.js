@@ -32,22 +32,23 @@ class Screenshooter {
         },
         audio: false,
       };
-      video.autoplay = true;
       // get the stream and put it in a video element
       video.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
       const videoTrack = video.srcObject.getVideoTracks()[0];
       const {height, width} = videoTrack.getSettings();
       canvas.width = width;
       canvas.height = height;
-      // wait one second. if less does not work properly
+      video.play();
       await delay(1000);
-      videoTrack.stop();
       // draw the video in the canvas
       context.drawImage(video, 0, 0, width, height);
       console.info('Track settings:');
       console.info(JSON.stringify(videoTrack.getSettings(), null, 2));
       console.info('Track constraints:');
       console.info(JSON.stringify(videoTrack.getConstraints(), null, 2));
+
+      videoTrack.stop();
+      video.pause();
       // finally take the image as base64 string from canvas
       return canvas.toDataURL('image/png', 1);
     } else {
