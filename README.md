@@ -18,7 +18,7 @@ If you use webpack the new esm package SHOULD be loaded (check your configuratio
 
 ## Install it
 ```javascript
-npm install odigeo-error-reporting#v1.1.0 --save
+npm install bitbucket:pmangialavori/odigeo-error-reporting#v1.1.0 --save
 ```
 
 ```javascript
