@@ -16,11 +16,11 @@
     </video>
     <script type="module">
         import main from '/lib/index.mjs';
-        main();        
-    </script>    
+        main({queryParams: '?toUrl=www.edreams.com'});        
+    </script>
     <script nomodule src="/lib/index.umd.js">
         console.log("script type nomodule", {OER});
-        odigeoErrorReporting();
+        odigeoErrorReporting({queryParams: '?toUrl=www.edreams.com'});
     </script>
 </body>
 </html>

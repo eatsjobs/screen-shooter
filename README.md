@@ -24,11 +24,11 @@ npm install bitbucket:pmangialavori/odigeo-error-reporting#v1.1.0 --save
 ```javascript
 <script type="module">
     import main from './node_modules/odigeo-error-reporting/lib/index.mjs';
-    main();
+    main({queryParams: '?toUrl=www.edreams.com'});
 </script>    
 <script nomodule src="./node_modules/odigeo-error-reporting/lib/index.umd.js">
     console.log("script type nomodule", {OER});
-    odigeoErrorReporting();
+    odigeoErrorReporting({queryParams: '?toUrl=www.edreams.com'});
 </script>
 ```
 

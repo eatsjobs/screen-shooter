@@ -1,3 +1,5 @@
+import Logger from '../Logger';
+const logger = Logger.getLogger('HttpService');
 /**
  *
  *
@@ -6,27 +8,44 @@
  */
 export default class HttpService {
   /**
-   * Creates an instance of HttpService.
-   * @param {Object} [{url = window.location.origin}={}] - test
+   * @param {Object} param0 - config
+   * @param {String} param0.baseURL - baseURL
    * @memberof HttpService
    */
-  constructor({url = window.location.origin} = {}) {
-    this.baseURL = url;
+  constructor({baseURL = window.location.origin} = {}) {
+    this.baseURL = baseURL;
   }
 
   /**
    *
-   *
-   * @return {Promise}
+   * @param {String} query - queryparams string ?a=1&b=2
+   * @return {Promise.<Object>}
    * @memberof HttpService
    */
-  async collect() {
-    return await fetch(this.baseURL, {
+  get(query) {
+    return fetch(`${this.baseURL}${query}`, {
       method: 'GET',
       headers: {
         // 'Content-Type': 'application/json',
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-    }).then(_ => _.json());
+    })
+        .then((response) => {
+          logger.info({response});
+          if (!response.ok) {
+            const {status, statusText} = response;
+            logger.warn('Cannot get', {query}, {status, statusText});
+            return {
+              status,
+              statusText,
+            };
+          }
+          return response.json();
+        })
+        .catch((err) => {
+          console.err(err);
+          logger.warn('Cannot get', {query}, {err});
+          return {};
+        });
   }
 }

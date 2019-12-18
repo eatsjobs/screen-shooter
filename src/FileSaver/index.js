@@ -1,5 +1,9 @@
 import {createElement} from '../utils.js';
-
+const HIDDEN_STYLES = `
+  display:none;
+  position: absolute;
+  height:0px; width:0px;
+`;
 /**
  *
  * Generate the ObjectURL
@@ -27,7 +31,7 @@ export function generateBlob({
  */
 export function download({url, name='report', ext='txt'} = {}) {
   const a = createElement('a');
-  a.style = 'display:none; position: absolute; height:0px; width:0px;';
+  a.style = HIDDEN_STYLES;
   if (typeof a.download === 'string') {
     a.href = url;
     a.download = `${name}.${new Date().toUTCString()}.${ext}`;

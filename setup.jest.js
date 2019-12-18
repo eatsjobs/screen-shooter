@@ -1,4 +1,4 @@
-global.fetch = require('jest-fetch-mock');
+global.fetchMock = require('fetch-mock');
 if (typeof window.URL.createObjectURL === 'undefined') {
   Object.defineProperty(window.URL, 'createObjectURL', {
     value: jest.fn((file) => file),

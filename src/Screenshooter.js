@@ -1,16 +1,7 @@
-import {createElement} from './utils.js';
+import Logger from './Logger';
+import {createElement, delay} from './utils.js';
 import html2canvas from 'html2canvas';
-
-/**
- * delay util
- * @param {number} [ms=0]
- * @return {Promise}
- */
-function delay(ms = 0) {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve, ms);
-  });
-}
+const logger = Logger.getLogger('Screenshooter');
 
 const isDisplayMediaSupported = () => {
   if (navigator.mediaDevices && 'getDisplayMedia' in navigator.mediaDevices) {
@@ -40,12 +31,12 @@ class Screenshooter {
       canvas.height = height;
       video.play();
       await delay(1000);
-      // draw the video in the canvas
       context.drawImage(video, 0, 0, width, height);
-      console.info('Track settings:');
-      console.info(JSON.stringify(videoTrack.getSettings(), null, 2));
-      console.info('Track constraints:');
-      console.info(JSON.stringify(videoTrack.getConstraints(), null, 2));
+      // draw the video in the canvas
+      logger.info('Track settings:');
+      logger.info(JSON.stringify(videoTrack.getSettings(), null, 2));
+      logger.info('Track constraints:');
+      logger.info(JSON.stringify(videoTrack.getConstraints(), null, 2));
 
       videoTrack.stop();
       video.pause();

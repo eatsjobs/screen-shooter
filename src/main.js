@@ -12,7 +12,7 @@ class App extends Component {
   async showReport() {
     this.setState({isLoadingReport: true});
     try {
-      const file = await getReport();
+      const file = await getReport(this.props.options.queryParams);
       const url = URL.createObjectURL(file);
       download({url});
       URL.revokeObjectURL(url);
