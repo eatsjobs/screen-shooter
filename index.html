@@ -3,23 +3,55 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Test Error reporting</title>  
+  <title>Test Error reporting</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <style>
+    [style*="--aspect-ratio"] > :first-child {
+        width: 100%;
+    }
+    [style*="--aspect-ratio"] > img {  
+        height: auto;
+    } 
+    @supports (--custom:property) {
+        [style*="--aspect-ratio"] {
+            position: relative;
+        }
+        [style*="--aspect-ratio"]::before {
+            content: "";
+            display: block;
+            padding-bottom: calc(100% / (var(--aspect-ratio)));
+        }  
+        [style*="--aspect-ratio"] > :first-child {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }  
+    }
+  </style>
 </head>
 
 <body>
     <h1>Test error reporting</h1>
-    <img src="https://www.fillmurray.com/200/300" width="200" height="300" alt="sport" />
+    <div style='--aspect-ratio: 200/300; max-width: 200px;'>
+        <img src="https://www.fillmurray.com/200/300" width="200" height="300" alt="sport" />
+    </div>    
+    <div style='--aspect-ratio: 640/310; max-width: 640px;'>
+        <video width="640" height="310" controls autoplay loop>
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">        
+            Your browser does not support the video tag.
+        </video>
+    </div>
     
-    <video width="640" height="310" controls autoplay loop>
-        <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">        
-        Your browser does not support the video tag.
-    </video>
     <script type="module">
         import main from '/lib/index.mjs';
         main({queryParams: '?toUrl=www.edreams.com'});        
     </script>
-    <script nomodule src="/lib/index.umd.js">
-        console.log("script type nomodule", {OER});
+    
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise/dist/es6-promise.auto.js"></script>
+    <script src="https://unpkg.com/browse/whatwg-fetch@3.0.0/dist/fetch.umd.js"></script>
+    <script nomodule src="/lib/index.umd.js" type="application/javascript"></script>
+    <script nomodule type="application/javascript">
         odigeoErrorReporting({queryParams: '?toUrl=www.edreams.com'});
     </script>
 </body>

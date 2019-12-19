@@ -1,24 +1,44 @@
 const Loggers = Object.create(null);
 const {getOwnPropertyNames, defineProperty} = Object;
+// @ts-check
 class Logger {
+  /**
+   * Creates an instance of Logger.
+   * @param {string} name
+   * @param {boolean} [enabled=true]
+   * @memberof Logger
+   */
   constructor(name, enabled = true) {
     this.loggerPrefix = name;
     this.enabled = enabled;
+    this.history = [];
+    this.limit = 10;
     getOwnPropertyNames(console)
+        .filter((methodName) => ['warn', 'log', 'error', 'info'].indexOf(methodName) >-1)
         .map((methodName) => {
           // generate and decorates functions. forwarding arguments to
           // 'console' object
           defineProperty(this, methodName, {
             value: function(...args) {
+              const date = new Date().toGMTString();
+              args.unshift(`${date}:(module: ${this.loggerPrefix})`);
+              this._store(JSON.stringify(args));
               if (!this.enabled) return;
-              args.unshift(`(module: ${this.loggerPrefix})`);
               console[methodName](...args);
+              return args;
             },
             enumerable: true,
             configurable: false,
             writable: false,
           });
         });
+  }
+
+  _store(line) {
+    if (this.history.length === this.limit) {
+      this.history.shift();
+    }
+    this.history.push(line);
   }
 
   disable() {
@@ -35,7 +55,7 @@ export default {
   /**
      * factory
      * @export
-     * @param {String} name - the name of the logger
+     * @param {String} name - the name of the logger to create or get
      * @return {Logger}
      */
   getLogger(name) {

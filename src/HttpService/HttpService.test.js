@@ -1,4 +1,7 @@
+import Logger from '../Logger';
 import HttpService from './index.js';
+
+Logger.disableAll();
 
 beforeEach(() => {
 
