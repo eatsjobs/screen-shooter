@@ -1,5 +1,5 @@
 {
-  "name": "odigeo-error-reporting",
+  "name": "@odigeo/error-reporting",
   "version": "1.1.1",
   "description": "Error reporting module",
   "source": "src/main.js",
@@ -9,7 +9,7 @@
   "browser": "lib/index.umd.js",
   "umd:main": "lib/index.umd.js",
   "publishConfig": {
-    "registry": "http://nexus.services.odigeo.com/nexus/repository/npm-all/"
+    "registry": "http://nexus-npm.services.odigeo.com/repository/npm-odigeo/"
   },
   "engines": {
     "node": ">= 10"
@@ -30,7 +30,10 @@
     "url": "git+ssh://git@bitbucket.org/pmangialavori/odigeo-error-reporting.git"
   },
   "keywords": [],
-  "author": "eatsjobs",
+  "author": {
+    "name": "eatsjobs",
+    "email": "pasquale.mangialavor@edreamsodigeo.com"    
+  },
   "license": "ISC",
   "homepage": "https://bitbucket.org/pmangialavori/odigeo-error-reporting#readme",
   "devDependencies": {
@@ -45,7 +48,8 @@
     "jest-esm-transformer": "^1.0.0",
     "microbundle": "v0.12.0-next.6",
     "node-fetch": "^2.6.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "whatwg-fetch": "^3.0.0"
   },
   "files": [
     "lib/**"
@@ -62,7 +66,9 @@
   "dependencies": {
     "htm": "^2.2.1",
     "html2canvas": "^1.0.0-rc.5",
-    "preact": "^10.0.0",
-    "whatwg-fetch": "^3.0.0"
+    "preact": "^10.0.0"    
+  },
+  "directories": {
+    "lib": "lib"
   }
 }
