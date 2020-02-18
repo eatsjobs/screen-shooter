@@ -23,7 +23,7 @@
     "test": "cross-env NODE_ENV=test jest --no-cache",
     "test:with-coverage": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watch --no-cache",
-    "version": "npm run build && git add -Af lib",
+    "version": "npm run build && git add -Af lib package-lock.json",
     "postversion": "git push && git push --tags"
   },
   "repository": {
