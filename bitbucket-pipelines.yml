@@ -13,7 +13,7 @@ pipelines:
             - node
           name: Install and Test
           script:
-            - npm install
+            - npm ci
             - npm test
   branches:
     master:
@@ -22,6 +22,6 @@ pipelines:
             - node
           name: Release version
           script:
-            - npm install
+            - npm ci
             - npm test
             - npm version minor -m "%s version release"
