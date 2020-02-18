@@ -5,7 +5,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  
 });
 
 test('should generate Blob', () => {
