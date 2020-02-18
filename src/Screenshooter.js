@@ -24,7 +24,9 @@ class Screenshooter {
         audio: false,
       };
       // get the stream and put it in a video element
-      video.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
+      video.srcObject = await navigator
+          .mediaDevices
+          .getDisplayMedia(displayMediaOptions);
       const videoTrack = video.srcObject.getVideoTracks()[0];
       const {height, width} = videoTrack.getSettings();
       canvas.width = width;
