@@ -6,11 +6,22 @@
 image: node:10.16.3
 
 pipelines:
-  default:
-    - step:
-        caches:
-          - node
-        script: # Modify the commands below to build your repository.
-          - npm install
-          - npm test
-          - npm run build
+  pull-requests:
+    '**':
+      - step:
+          caches:
+            - node
+          name: Install and Test
+          script:
+            - npm install
+            - npm test
+  branches:
+    master:
+      - step:
+          caches:
+            - node
+          name: Release version
+          script:
+            - npm install
+            - npm test
+            - npm version minor -m "%s version release"
