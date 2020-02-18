@@ -22,6 +22,6 @@ pipelines:
             - node
           name: Release version
           script:
-            - npm ci --unsafe-perm
+            - npm install --unsafe-perm
             - npm test
             - npm version minor -m "%s version release"
