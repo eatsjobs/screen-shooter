@@ -6,13 +6,14 @@ class Logger {
    * Creates an instance of Logger.
    * @param {string} name
    * @param {boolean} [enabled=true]
+   * @param {number} [limit=10]
    * @memberof Logger
    */
-  constructor(name, enabled = true) {
+  constructor(name, enabled = true, limit = 10) {
     this.loggerPrefix = name;
     this.enabled = enabled;
     this.history = [];
-    this.limit = 10;
+    this.limit = limit;
     getOwnPropertyNames(console)
         .filter((methodName) => ['warn', 'log', 'error', 'info'].indexOf(methodName) >-1)
         .map((methodName) => {
@@ -53,11 +54,11 @@ class Logger {
 
 export default {
   /**
-     * factory
-     * @export
-     * @param {String} name - the name of the logger to create or get
-     * @return {Logger}
-     */
+   * factory
+   * @export
+   * @param {String} name - the name of the logger to create or get
+   * @return {Logger}
+   */
   getLogger(name) {
     if (Loggers[name]) {
       return Loggers[name];
@@ -67,7 +68,7 @@ export default {
     return Loggers[name];
   },
   disableAll() {
-    Object.values(Loggers).map((Logger) => Logger.disable());
+    Object.values(Loggers).map((logger) => logger.disable());
   },
   enableAll() {
     Object.values(Loggers).map((logger) => logger.enable());
