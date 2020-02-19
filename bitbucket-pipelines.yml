@@ -22,7 +22,7 @@ pipelines:
             - node
           name: Release version
           script:
-            - sudo chown -R $USER /usr/local
+            - chown -R $USER /usr/local
             - npm install --unsafe-perm
             - npm test
             - npm version minor -m "%s version release"
