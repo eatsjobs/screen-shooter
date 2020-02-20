@@ -23,6 +23,7 @@ pipelines:
           name: Release version
           script:
             - whoami
+            - npm config set unsafe-perm true
             - npm ci
             - npm run test:with-coverage
             - npm version minor -m "%s version release"
