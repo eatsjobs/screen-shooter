@@ -9,9 +9,9 @@
     [style*="--aspect-ratio"] > :first-child {
         width: 100%;
     }
-    [style*="--aspect-ratio"] > img {  
+    [style*="--aspect-ratio"] > img {
         height: auto;
-    } 
+    }
     @supports (--custom:property) {
         [style*="--aspect-ratio"] {
             position: relative;
@@ -20,13 +20,13 @@
             content: "";
             display: block;
             padding-bottom: calc(100% / (var(--aspect-ratio)));
-        }  
+        }
         [style*="--aspect-ratio"] > :first-child {
             position: absolute;
             top: 0;
             left: 0;
             height: 100%;
-        }  
+        }
     }
   </style>
 </head>
@@ -35,24 +35,34 @@
     <h1>Test error reporting</h1>
     <div style='--aspect-ratio: 200/300; max-width: 200px;'>
         <img src="https://www.fillmurray.com/200/300" width="200" height="300" alt="sport" />
-    </div>    
+    </div>
     <div style='--aspect-ratio: 640/310; max-width: 640px;'>
         <video width="640" height="310" controls autoplay loop>
-            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">        
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
-    
+
     <script type="module">
         import main from '/lib/index.mjs';
-        main({queryParams: '?toUrl=www.edreams.com'});        
+        main({
+          queryParams: '?toUrl=www.edreams.com',
+          extra: {
+            sessionScope: {a: 1, b: 2}
+          }
+        });
     </script>
-    
+
     <script nomodule src="https://cdn.jsdelivr.net/npm/es6-promise/dist/es6-promise.auto.js"></script>
     <script nomodule src="https://unpkg.com/browse/whatwg-fetch@3.0.0/dist/fetch.umd.js"></script>
     <script nomodule src="/lib/index.umd.js" type="application/javascript"></script>
     <script nomodule type="application/javascript">
-        errorReporting({queryParams: '?toUrl=www.edreams.com'});
+        errorReporting({
+          queryParams: '?toUrl=www.edreams.com',
+          extra: {
+            sessionScope: {a: 1, b: 2}
+          }
+        });
     </script>
 </body>
 </html>

@@ -12,7 +12,8 @@ class App extends Component {
   async showReport() {
     this.setState({isLoadingReport: true});
     try {
-      const file = await getReport(this.props.options.queryParams);
+      const {options} = this.props;
+      const file = await getReport(options.queryParams, options.extra);
       const url = URL.createObjectURL(file);
       download({url});
       URL.revokeObjectURL(url);

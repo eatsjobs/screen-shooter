@@ -10,8 +10,7 @@ const HIDDEN_STYLES = `
  * @param {String} data
  * @param {string} [filename=`${new Date().toJSON()}.txt`]
  * @param {string} [type='text/plain']
- * @return {DOMStringMap}
- * @memberof FileSaver
+ * @return {Blob}
  */
 export function generateBlob({
   data,

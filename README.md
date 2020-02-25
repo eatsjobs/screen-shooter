@@ -23,12 +23,22 @@ npm install bitbucket:pmangialavori/odigeo-error-reporting#v1.1.0 --save
 
 ```javascript
 <script type="module">
-    import main from './node_modules/odigeo-error-reporting/lib/index.mjs';
-    main({queryParams: '?toUrl=www.edreams.com'});
-</script>    
+    import main from '/lib/index.mjs';
+    main({
+      queryParams: '?toUrl=www.edreams.com',
+      extra: {
+        sessionScope: {a: 1, b: 2}
+      }
+    });
+</script>
 <script nomodule src="./node_modules/odigeo-error-reporting/lib/index.umd.js">
     console.log("script type nomodule", {OER});
-    odigeoErrorReporting({queryParams: '?toUrl=www.edreams.com'});
+    odigeoErrorReporting({
+       queryParams: '?toUrl=www.edreams.com',
+       extra: {
+         sessionScope: {a: 1, b: 2}
+       }
+    });
 </script>
 ```
 
@@ -42,7 +52,7 @@ npm run dev
 ## Implementation example in webpack/rollup/parcel projects
 ```javascript
 (async function() {
-    const { default: myModule } = await import('odigeo-error-reporting');
+    const {default: myModule} = await import('odigeo-error-reporting');
     myModule.main(options);
 })()
 ```

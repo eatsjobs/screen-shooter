@@ -1,15 +1,17 @@
-import HttpService from './HttpService';
+// import HttpService from './HttpService';
 import {generateBlob} from './FileSaver';
 import Logger from './Logger';
 const logger = Logger.getLogger('getReport');
 
+/*
 const errorReporterService = new HttpService({
   baseURL: '/travel/service/reporting/report',
 });
+*/
 
 /**
  * Get all key values from storage
- * @param {WindowLocalStorage|WindowSessionStorage} storage - storage
+ * @param {Storage} storage - storage
  * @return {Object<string, string>}
  */
 async function getAllFrom(storage) {
@@ -32,30 +34,32 @@ function getCookies() {
 }
 
 /**
- * Get report
- * @param {String} query - query example: ?toUrl=www.edreams.es
- * @return {URL} - returns the url object of the generated file
+ * getReport
+ * @param {string} [query=''] - query string params
+ * @param {object} [extra={}] - extra object to be attached to the file
+ * @return {Promise<Blob>}
  */
-export default async function getReport(query) {
+export default async function getReport(query = '', extra = {}) {
   const [
     localStorageDataSet,
     sessionStorageDataset,
-    serverData,
+    // serverData = {},
   ] = await Promise.all([
     getAllFrom(localStorage),
     getAllFrom(sessionStorage),
-    errorReporterService.get(query),
+    // errorReporterService.get(query),
   ]);
 
   const clientData = {
     localStorage: localStorageDataSet,
     sessionStorage: sessionStorageDataset,
     cookies: getCookies(),
+    ...extra,
   };
-  logger.info({serverData, clientData});
+  logger.info({clientData});
   return generateBlob({
     data: JSON.stringify({
-      serverData,
+      // serverData,
       clientData,
     }, null, 2),
   });
