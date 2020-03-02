@@ -13,7 +13,7 @@ class App extends Component {
     this.setState({isLoadingReport: true});
     try {
       const {options} = this.props;
-      const file = await getReport(options.queryParams, options.extra);
+      const file = await getReport(options.endPoint, options.extra);
       const url = URL.createObjectURL(file);
       download({url});
       URL.revokeObjectURL(url);
@@ -101,8 +101,8 @@ export default function main(options = {}) {
     `);
     root = createElement('div');
     root.id = ROOT_SELECTOR.slice(1, ROOT_SELECTOR.length);
-    document.body.appendChild(root);
-    document.head.appendChild(styleTag);
+    document.querySelector('head').appendChild(styleTag);
+    document.querySelector('body').appendChild(root);
   }
   render(html`<${App} options="${options}" />`, root);
 }

@@ -18,12 +18,13 @@ export default class HttpService {
 
   /**
    *
-   * @param {String} query - queryparams string ?a=1&b=2
-   * @return {Promise.<Object>}
+   * @param {String} endPoint - endPoint
+   * @return {Promise<Object, Object>}
    * @memberof HttpService
    */
-  get(query) {
-    return fetch(`${this.baseURL}${query}`, {
+  async get(endPoint) {
+    const url = `${this.baseURL}${endPoint}`;
+    return fetch(url, {
       method: 'GET',
       headers: {
         // 'Content-Type': 'application/json',
@@ -34,8 +35,9 @@ export default class HttpService {
           logger.info({response});
           if (!response.ok) {
             const {status, statusText} = response;
-            logger.warn('Cannot get', {query}, {status, statusText});
+            logger.warn('Cannot get', {url}, {status, statusText});
             return {
+              url,
               status,
               statusText,
             };
@@ -43,9 +45,8 @@ export default class HttpService {
           return response.json();
         })
         .catch((err) => {
-          console.err(err);
-          logger.warn('Cannot get', {query}, {err});
-          return {};
+          logger.warn('Cannot get', {url, err});
+          return null;
         });
   }
 }

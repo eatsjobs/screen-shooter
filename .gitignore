@@ -70,3 +70,5 @@ docs/*
 dist/*
 # lib
 lib/*
+
+.idea/

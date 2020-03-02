@@ -46,6 +46,7 @@
     <script type="module">
         import main from '/lib/index.mjs';
         main({
+          endPoint: '/service/reporting/session',
           queryParams: '?toUrl=www.edreams.com',
           extra: {
             sessionScope: {a: 1, b: 2}
@@ -58,6 +59,7 @@
     <script nomodule src="/lib/index.umd.js" type="application/javascript"></script>
     <script nomodule type="application/javascript">
         errorReporting({
+          endPoint: '/service/reporting/session',
           queryParams: '?toUrl=www.edreams.com',
           extra: {
             sessionScope: {a: 1, b: 2}
