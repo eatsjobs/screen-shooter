@@ -1,6 +1,6 @@
 {
   "name": "@odigeo/error-reporting",
-  "version": "1.45.0",
+  "version": "1.46.0",
   "description": "Error reporting module",
   "source": "src/main.js",
   "main": "lib/index.umd.js",
