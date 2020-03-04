@@ -1,9 +1,4 @@
-import {createElement} from '../utils.js';
-const HIDDEN_STYLES = `
-  display:none;
-  position: absolute;
-  height:0px; width:0px;
-`;
+import FileSaver from 'file-saver';
 /**
  *
  * Generate the ObjectURL
@@ -14,7 +9,7 @@ const HIDDEN_STYLES = `
  */
 export function generateBlob({
   data,
-  type = 'text/plain',
+  type = 'text/plain;charset=utf-8',
 } = {}) {
   const file = new Blob([data], {type});
   return file;
@@ -29,19 +24,5 @@ export function generateBlob({
  * @return {HTMLAnchorElement}
  */
 export function download({url, name='report', ext='txt'} = {}) {
-  const a = createElement('a');
-  a.style = HIDDEN_STYLES;
-  if (typeof a.download === 'string') {
-    a.href = url;
-    a.download = `${name}.${new Date().toUTCString()}.${ext}`;
-    document.body.appendChild(a);
-    a.click();
-  } else {
-    window.open(url);
-  }
-  setTimeout(() => {
-    document.body.removeChild(a);
-    a.remove();
-  }, 0);
-  return a;
+  return FileSaver.saveAs(url, `${name}.${new Date().toUTCString()}.${ext}`);
 }

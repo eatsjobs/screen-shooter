@@ -8,6 +8,8 @@ import {createElement, ROOT_SELECTOR, $} from './utils.js';
 const screenShooter = new Screenshooter();
 const html = htm.bind(h);
 
+const URL = window.URL || window.webkitURL;
+
 class App extends Component {
   async showReport() {
     this.setState({isLoadingReport: true});
@@ -16,7 +18,6 @@ class App extends Component {
       const file = await getReport(options.endPoint, options.extra);
       const url = URL.createObjectURL(file);
       download({url});
-      URL.revokeObjectURL(url);
       this.setState({isLoadingReport: false});
     } catch (err) {
       this.setState({isLoadingReport: false});

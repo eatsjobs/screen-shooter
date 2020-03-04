@@ -15,7 +15,11 @@ class Logger {
     this.history = [];
     this.limit = limit;
     getOwnPropertyNames(console)
-        .filter((methodName) => ['warn', 'log', 'error', 'info'].indexOf(methodName) >-1)
+        .filter((methodName) => [
+          'warn',
+          'log',
+          'error',
+          'info'].indexOf(methodName) >-1)
         .map((methodName) => {
           // generate and decorates functions. forwarding arguments to
           // 'console' object

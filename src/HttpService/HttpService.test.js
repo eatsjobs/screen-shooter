@@ -4,7 +4,7 @@ import HttpService from './index.js';
 Logger.disableAll();
 let url = '';
 beforeAll(() => {
-  url = `${window.location.origin}/service/reporting/session`
+  url = `${window.location.origin}/service/reporting/session`;
 });
 beforeEach(() => {
 

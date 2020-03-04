@@ -69,6 +69,7 @@
     }
   },
   "dependencies": {
+    "file-saver": "^2.0.2",
     "htm": "^3.0.3",
     "html2canvas": "^1.0.0-rc.5",
     "preact": "^10.3.2"
