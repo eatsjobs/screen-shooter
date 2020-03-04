@@ -25,4 +25,5 @@ pipelines:
             - whoami
             - npm config set unsafe-perm true
             - npm ci
-            - npm run test:with-coverage            
+            - npm run test:with-coverage
+            - npm version minor -m "[skip ci] %s version release"
