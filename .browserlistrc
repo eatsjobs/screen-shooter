@@ -1,0 +1,10 @@
+[production]
+ie 11
+chrome 58
+> 1%
+
+[modern]
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Safari versions
+last 2 Edge versions

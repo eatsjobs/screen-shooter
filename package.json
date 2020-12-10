@@ -1,0 +1,79 @@
+{
+  "name": "@eatsjobs/screen-shooter",
+  "version": "0.0.1",
+  "description": "error reporting tool",
+  "source": "src/main.js",
+  "main": "lib/index.umd.js",
+  "module": "lib/index.mjs",
+  "unpkg": "lib/index.umd.js",
+  "browser": "lib/index.umd.js",
+  "umd:main": "lib/index.umd.js",
+  "engines": {
+    "node": ">= 12"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production microbundle src/main.js -f es,umd --sourcemap --compress=true --external=none",
+    "build:dev": "microbundle src/main.js -f es,umd --sourcemap --compress=false --external=none",
+    "build:watch": "microbundle src/main.js -f es,umd -w --sourcemap --compress=false --external=none",
+    "serve": "http-server . -o -p 6009 -c-1",
+    "dev": "cross-env NODE_ENV=development npm-run-all --parallel build:watch serve",
+    "test": "cross-env NODE_ENV=test jest --no-cache",
+    "test:coverage": "cross-env NODE_ENV=test jest --coverage",
+    "test:watch": "cross-env NODE_ENV=test jest --watch --no-cache",
+    "version": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:eatsjobs/screen-shooter.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "eatsjobs",
+    "email": "pasquale.mangialavori@gmail.com"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/eatsjobs/screen-shooter/blob/master/README.md",
+  "devDependencies": {
+    "@types/jest": "^26.0.18",
+    "bufferutil": "^4.0.2",
+    "canvas": "^2.6.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.15.0",
+    "eslint-config-google": "^0.14.0",
+    "esm": "=3.2.25",
+    "fetch-mock": "^9.11.0",
+    "http-server": "^0.12.3",
+    "husky": "^4.3.5",
+    "jest": "^26.6.3",
+    "jest-esm-transformer": "^1.0.0",
+    "microbundle": "^0.12.4",
+    "node-fetch": "^2.6.1",
+    "npm-run-all": "^4.1.5",
+    "utf-8-validate": "^5.0.3",
+    "whatwg-fetch": "^3.5.0"
+  },
+  "files": [
+    "lib/**"
+  ],
+  "np": {
+    "yarn": false,
+    "contents": "lib"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:coverage"
+    }
+  },
+  "dependencies": {
+    "file-saver": "^2.0.5",
+    "htm": "^3.0.4",
+    "html2canvas": "^1.0.0-rc.7",
+    "preact": "^10.5.7"
+  },
+  "peerDependencies": {
+    "whatwg-fetch": "^3.5.0"
+  },
+  "directories": {
+    "lib": "lib"
+  }
+}
