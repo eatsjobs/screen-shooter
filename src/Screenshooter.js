@@ -45,7 +45,7 @@ class Screenshooter {
       // finally take the image as base64 string from canvas
       return canvas.toDataURL('image/png', 1);
     } else {
-      const canvasElement = await html2canvas(document.body, {
+      const canvasElement = await html2canvas(document.documentElement, {
         useCORS: true,
         allowTaint: true,
         imageTimeout: 5000,

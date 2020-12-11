@@ -1,7 +1,8 @@
 {
   "name": "@eatsjobs/screen-shooter",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "error reporting tool",
+  "private": false,
   "source": "src/main.js",
   "main": "lib/index.umd.js",
   "module": "lib/index.mjs",

@@ -25,7 +25,7 @@ test('ErrorReporter service', async () => {
 });
 
 
-test('ErrorReporter service should fail', async () => {
+test('ErrorReporter service should return null', async () => {
   fetchMock
       .get(url, {
         status: 500,
@@ -35,5 +35,7 @@ test('ErrorReporter service should fail', async () => {
       });
 
   const httpService = new HttpService();
-  expect(httpService.get('/service/reporting/session')).rejects.toThrow(Error);
+  return expect(httpService.get('/service/reporting/session'))
+      .resolves
+      .toEqual(null);
 });

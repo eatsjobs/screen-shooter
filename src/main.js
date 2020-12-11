@@ -1,12 +1,11 @@
-import {h, Component, render} from 'preact';
-import htm from 'htm';
+import {Component, render} from 'preact';
+import {html} from 'htm/preact';
 import getReport from './getReport.js';
 import {styleSheet} from './StylesUtils.js';
 import {download} from './FileSaver';
 import Screenshooter from './Screenshooter';
 import {createElement, ROOT_SELECTOR, $} from './utils.js';
 const screenShooter = new Screenshooter();
-const html = htm.bind(h);
 
 const URL = window.URL || window.webkitURL;
 
@@ -15,7 +14,7 @@ class App extends Component {
     this.setState({isLoadingReport: true});
     try {
       const {options} = this.props;
-      const file = await getReport(options.endPoint, options.extra);
+      const file = await getReport(options.extra);
       const url = URL.createObjectURL(file);
       download({url});
       this.setState({isLoadingReport: false});
@@ -62,7 +61,7 @@ class App extends Component {
 
 /**
  *
- * render the Error Reporting tool
+ * render the Error Reporting tool UI
  * @export
  * @param {Object} [options={}] - configurations
  */

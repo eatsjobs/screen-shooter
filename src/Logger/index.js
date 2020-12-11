@@ -34,7 +34,7 @@ class Logger {
             },
             enumerable: true,
             configurable: false,
-            // writable: false,
+            writable: false,
           });
         });
   }

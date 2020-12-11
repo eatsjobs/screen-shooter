@@ -3,7 +3,7 @@ import {generateBlob} from './FileSaver';
 import Logger from './Logger';
 const logger = Logger.getLogger('getReport');
 
-const errorReporterService = new HttpService();
+const httpBinService = new HttpService({baseURL: 'https://httpbin.org'});
 
 /**
  * Get all key values from storage
@@ -31,11 +31,10 @@ function getCookies() {
 
 /**
  * getReport
- * @param {string} [endPoint=''] - endPoint string params
  * @param {object} [extra={}] - extra object to be attached to the file
  * @return {Promise<Blob>}
  */
-export default async function getReport(endPoint = '', extra = {}) {
+export default async function getReport(extra = {}) {
   try {
     const [
       localStorageDataSet,
@@ -44,14 +43,13 @@ export default async function getReport(endPoint = '', extra = {}) {
     ] = await Promise.all([
       getAllFrom(localStorage),
       getAllFrom(sessionStorage),
-      errorReporterService.get(endPoint),
+      httpBinService.get('/ip'),
     ]);
 
     const clientData = {
       localStorage: localStorageDataSet,
       sessionStorage: sessionStorageDataset,
       cookies: getCookies(),
-      ...extra,
     };
     logger.info({clientData, serverData});
     return generateBlob({
@@ -59,6 +57,7 @@ export default async function getReport(endPoint = '', extra = {}) {
           {
             serverData,
             clientData,
+            extra,
           },
           null,
           2,

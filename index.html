@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Test Error Reporter: Screenshooter</title>
+  <title>Screenshooter</title>
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <style>
     [style*="--aspect-ratio"]> :first-child {
@@ -51,8 +51,6 @@
   <script type="module">
     import main from '/lib/index.mjs';
     main({
-      endPoint: '/service/reporting/session',
-      queryParams: '?toUrl=www.edreams.com',
       extra: {
         sessionScope: { a: 1, b: 2 }
       }
@@ -63,9 +61,7 @@
   <script nomodule src="https://unpkg.com/browse/whatwg-fetch@3.5.0/dist/fetch.umd.js"></script>
   <script nomodule src="/lib/index.umd.js" type="application/javascript"></script>
   <script nomodule type="application/javascript">
-    errorReporting({
-      endPoint: '/service/reporting/session',
-      queryParams: '',
+    screenShooter({
       extra: {
         sessionScope: { a: 1, b: 2 }
       }
