@@ -1,4 +1,3 @@
-![Node.js Package](https://github.com/eatsjobs/screen-shooter/workflows/Node.js%20Package/badge.svg)
 # Screenshooter, Error reporting tool
 
 Error reporting module.
@@ -23,14 +22,14 @@ npm install @eatsjobs/screen-shooter --save
 
 ```javascript
 <script type="module">
-    import main from './node_modules/@eatsjobs/screen-shooter/lib/index.mjs';
+    import main from 'https://unpkg.com/@eatsjobs/screen-shooter@0.1.2/lib/index.mjs?module';
     main({
       extra: {
         sessionScope: {a: 1, b: 2}
       }
     });
 </script>
-<script nomodule src="./node_modules/@eatsjobs/screen-shooter/lib/index.umd.js">
+<script nomodule src="https://unpkg.com/@eatsjobs/screen-shooter@0.1.2/lib/index.umd.js">
     screenShooter({
        extra: {
          sessionScope: {a: 1, b: 2}
