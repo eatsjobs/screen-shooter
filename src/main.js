@@ -3,13 +3,20 @@ import {html} from 'htm/preact';
 import getReport from './getReport.js';
 import {styleSheet} from './StylesUtils.js';
 import {download} from './FileSaver';
-import Screenshooter from './Screenshooter';
-import {createElement, ROOT_SELECTOR, $} from './utils.js';
-const screenShooter = new Screenshooter();
+import {Recorder} from './Recorder.m';
+import {createElement, ROOT_SELECTOR, $, URL} from './utils.js';
 
-const URL = window.URL || window.webkitURL;
-
+const recorder = new Recorder();
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isLoadingReport: false,
+      isLoadingScreenshot: false,
+      isRecording: false,
+    };
+  }
+
   async showReport() {
     this.setState({isLoadingReport: true});
     try {
@@ -27,35 +34,53 @@ class App extends Component {
     try {
       this.setState({isLoadingScreenshot: true});
       const imageUrl = await screenShooter.take();
-      const url = imageUrl.replace('image/png', 'image/octet-stream');
-      download({url, name: 'image', ext: 'png'});
+      download({imageUrl, name: 'image', ext: 'png'});
       this.setState({isLoadingScreenshot: false});
     } catch (e) {
       this.setState({isLoadingScreenshot: false});
     }
   }
 
-  constructor() {
-    super();
-    this.state = {
-      isLoadingReport: false,
-      isLoadingScreenshot: false,
-    };
+  async record() {
+    try {
+      await recorder.start();
+      this.setState({isRecording: true});
+    } catch (e) {
+      console.log({e});
+    }
   }
 
-  render(props, {isLoadingReport, isLoadingScreenshot}) {
-    return html`<button
+  async stopRecord() {
+    await recorder.stop();
+    this.setState({isRecording: false});
+    await recorder.save();
+  }
+
+  render(props, {isLoadingReport, isLoadingScreenshot, isRecording}) {
+    return html`
+    <button
         class="btn"
         disabled="${isLoadingReport}"
         onClick=${() => this.showReport()}>          
           ${isLoadingReport ? 'Loading...' : 'Generate the report' }
-      </button>
-      <button
+    </button>
+    <button
         class="btn"
         disabled="${isLoadingScreenshot}"
         onClick=${() => this.takeScreenShot()}>          
           ${isLoadingScreenshot ? 'Loading...' : 'TakeScreenshot' }
-      </button>`;
+    </button>
+    <button class="btn ${isRecording ? 'red' : ''}"
+        onClick=${() => {
+    if (isRecording) {
+      this.stopRecord();
+    } else {
+      this.record();
+    }
+  }} 
+    disabled="${!Recorder.isRecordingSupported()}">
+    <span>${isRecording ? 'Stop' : 'Record' }</span>
+  </button>`;
   }
 }
 
@@ -97,7 +122,18 @@ export default function main(options = {}) {
       }
       ${ROOT_SELECTOR} .btn:disabled {
         background-image: linear-gradient(gray, gray);
-      }      
+      }
+      ${ROOT_SELECTOR} .btn.red{
+        background-image: linear-gradient(red, red);
+      }
+      ${ROOT_SELECTOR} .btn.red > span {
+        animation: blink 1s linear infinite;
+      }
+      @keyframes blink {
+        0% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+      }
     `);
     root = createElement('div');
     root.id = ROOT_SELECTOR.slice(1, ROOT_SELECTOR.length);

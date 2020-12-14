@@ -4,11 +4,11 @@ Error reporting module.
 Generate JSON data the session and screenshots the site.
 by [@eatsjobs](mailto:pasquale.mangialavori@gmail.com)
 
-## Purpose Retrieve session information directly in the browser
+## The Purpose of this project is to let the user retrieve session information directly in the browser
 The package is released in two format output:
 - standalone umd build
 - esm modern package
-If you use webpack the new esm package SHOULD be loaded (check your configuration)
+If you use webpack the new esm package MUST be loaded (check your configuration)
 
 # What I have used to develop it
 - [Preact X](https://preactjs.com/) and [htm](https://github.com/developit/htm)

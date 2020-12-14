@@ -3,16 +3,14 @@ import FileSaver from 'file-saver';
  *
  * Generate the ObjectURL
  * @param {String} data
- * @param {string} [filename=`${new Date().toJSON()}.txt`]
- * @param {string} [type='text/plain']
+ * @param {string} [type='text/plain;charset=utf-8']
  * @return {Blob}
  */
 export function generateBlob({
   data,
   type = 'text/plain;charset=utf-8',
 } = {}) {
-  const file = new Blob([data], {type});
-  return file;
+  return new Blob([data], {type});
 }
 
 /**

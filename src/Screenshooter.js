@@ -1,15 +1,7 @@
 import Logger from './Logger';
-import {createElement, delay} from './utils.js';
+import {createElement, delay, isDisplayMediaSupported} from './utils.js';
 import html2canvas from 'html2canvas';
 const logger = Logger.getLogger('Screenshooter');
-
-const isDisplayMediaSupported = () => {
-  if (navigator.mediaDevices && 'getDisplayMedia' in navigator.mediaDevices) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 class Screenshooter {
   async take() {
@@ -24,10 +16,11 @@ class Screenshooter {
         audio: false,
       };
       // get the stream and put it in a video element
-      video.srcObject = await navigator
+      const stream = await navigator
           .mediaDevices
           .getDisplayMedia(displayMediaOptions);
-      const videoTrack = video.srcObject.getVideoTracks()[0];
+      video.srcObject = stream;
+      const [videoTrack] = video.srcObject.getVideoTracks();
       const {height, width} = videoTrack.getSettings();
       canvas.width = width;
       canvas.height = height;
@@ -35,15 +28,15 @@ class Screenshooter {
       await delay(1000);
       context.drawImage(video, 0, 0, width, height);
       // draw the video in the canvas
-      logger.info('Track settings:');
-      logger.info(JSON.stringify(videoTrack.getSettings(), null, 2));
-      logger.info('Track constraints:');
-      logger.info(JSON.stringify(videoTrack.getConstraints(), null, 2));
-
+      logger.info('Track settings:',
+          JSON.stringify(videoTrack.getSettings(), null, 2));
+      logger.info('Track constraints:',
+          JSON.stringify(videoTrack.getConstraints(), null, 2));
       videoTrack.stop();
       video.pause();
       // finally take the image as base64 string from canvas
-      return canvas.toDataURL('image/png', 1);
+      return canvas.toDataURL('image/png', 1)
+          .replace('image/png', 'image/octet-stream');
     } else {
       const canvasElement = await html2canvas(document.documentElement, {
         useCORS: true,
@@ -51,7 +44,8 @@ class Screenshooter {
         imageTimeout: 5000,
         logging: true,
       });
-      return canvasElement.toDataURL('image/png', 1);
+      return canvasElement.toDataURL('image/png', 1)
+          .replace('image/png', 'image/octet-stream');
     }
   }
 }

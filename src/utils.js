@@ -8,7 +8,7 @@ export const ROOT_SELECTOR = '#error-reporting';
  * @return {Promise}
  */
 export function delay(ms = 0) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve)=> {
     setTimeout(resolve, ms);
   });
 }
@@ -27,3 +27,8 @@ export function click(node) {
     node.dispatchEvent(evt);
   }
 }
+
+export const isDisplayMediaSupported = () =>
+  navigator.mediaDevices && 'getDisplayMedia' in navigator.mediaDevices;
+
+export const URL = window.URL || window.webkitURL;

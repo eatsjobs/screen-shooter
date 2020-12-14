@@ -50,6 +50,7 @@ export default async function getReport(extra = {}) {
       localStorage: localStorageDataSet,
       sessionStorage: sessionStorageDataset,
       cookies: getCookies(),
+      userAgent: navigator.userAgent,
     };
     logger.info({clientData, serverData});
     return generateBlob({
